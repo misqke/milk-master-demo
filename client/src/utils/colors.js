@@ -21,7 +21,7 @@ export const colors = [
   },
   {
     color: "lt green",
-    code: "#35F03B",
+    code: "#35FF3B",
   },
   {
     color: "brown",
