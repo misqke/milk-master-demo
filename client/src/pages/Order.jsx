@@ -6,6 +6,7 @@ import OrderRow from "../components/OrderRow";
 import { getAllMilks } from "../actions/milks";
 import { useSelector, useDispatch } from "react-redux";
 import { updateCratesPerStack } from "../redux/orderSlice";
+import { colors } from "../utils/colors";
 
 const Order = () => {
   // navigation - dispatch
@@ -20,21 +21,27 @@ const Order = () => {
   const [message, setMessage] = useState("");
   const [url, setUrl] = useState("");
   const [error, setError] = useState("");
+  const [view, setView] = useState("all");
+  const orderList = useSelector((state) => state.order.milks);
 
   // functions
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setView("all");
     setMessage(
       "Submitting Order... This may take a few moments... Do not refresh or close browser...."
     );
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
     const submission = {
       milks: [],
-      username,
-      password,
     };
-    milks.forEach((milk) => {
-      const totalElement = document.querySelector(`#total${milk._id}`);
-      submission.milks.push(totalElement.innerText);
+    orderList.forEach((milk, i) => {
+      const total = Math.floor(
+        Number(milk.stacks) * milks[i].multiplier * cratesPerStack +
+          Number(milk.crates) * milks[i].multiplier
+      );
+      submission.milks.push(total);
     });
     const data = await submitOrder(submission);
     if (data.error) {
@@ -56,8 +63,16 @@ const Order = () => {
         } else {
           setMessage(data.msg);
         }
-      }, 20000);
+      }, 15000);
     }
+  };
+
+  const handleViewClick = (col) => {
+    return () => {
+      setView(col);
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    };
   };
 
   // use effects
@@ -87,6 +102,27 @@ const Order = () => {
   if (!message) {
     return (
       <div className="container py-2 px-3 bg-dark">
+        <div
+          className="row py-1 d-flex justify-content-evenly flex-wrap sticky-top bg-dark"
+          style={{ zIndex: "100" }}
+        >
+          {colors.map((color) => (
+            <button
+              key={color.code}
+              onClick={handleViewClick(color.color)}
+              className="btn col-2 py-2 me-1 my-1"
+              style={{ background: `${color.code}`, height: "30px" }}
+            ></button>
+          ))}
+          <button
+            onClick={handleViewClick("all")}
+            className="btn col-2 py-2 me-1 my-1"
+            style={{
+              background: `linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet)`,
+              height: "30px",
+            }}
+          ></button>
+        </div>
         {error && <h3 className="alert alert-danger">{error}</h3>}
         <div className="d-flex justify-content-between my-2">
           <h2 className="text-white my-auto">Order</h2>
@@ -108,12 +144,20 @@ const Order = () => {
 
         {milks &&
           milks.map((milk) => {
-            return (
+            return view === "all" ? (
               <OrderRow
                 milk={milk}
                 key={milk._id}
                 cratesPerStack={cratesPerStack}
               />
+            ) : (
+              milk.color === view && (
+                <OrderRow
+                  milk={milk}
+                  key={milk._id}
+                  cratesPerStack={cratesPerStack}
+                />
+              )
             );
           })}
         <form className="container my-5" onSubmit={handleSubmit}>
@@ -127,6 +171,7 @@ const Order = () => {
               id="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              placeholder="NOT REQUIRED"
             />
           </div>
           <div className="mb-4">
@@ -139,6 +184,7 @@ const Order = () => {
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              placeholder="NOT REQUIRED"
             />
           </div>
           <div className="mb-3">

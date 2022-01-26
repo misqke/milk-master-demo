@@ -3,7 +3,7 @@ import axios from "axios";
 export const login = async (password) => {
   try {
     const response = await axios.post(
-      "https://milk-master.herokuapp.com/api/auth",
+      "https://milk-master-demo.herokuapp.com/api/auth",
       {
         password: password,
       }

@@ -44,6 +44,7 @@ const Login = () => {
           </button>
         </div>
       </form>
+      <p className="text-white mt-4">Password: password</p>
     </div>
   );
 };

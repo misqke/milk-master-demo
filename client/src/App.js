@@ -11,7 +11,14 @@ function App() {
     <div>
       <HashRouter>
         <Header />
-        <div className="bg-dark" style={{ width: "100vw", minHeight: "100vh" }}>
+        <div
+          className="bg-dark"
+          style={{
+            width: "100vw",
+            minHeight: "100vh",
+            scrollBehavior: "smooth",
+          }}
+        >
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />

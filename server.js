@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, "client/build")));
 const corsOptions =
   process.env.NODE_ENV === "development"
     ? { origin: "*" }
-    : { origin: "https://milk-master.herokuapp.com" };
+    : { origin: "https://milk-master-demo.herokuapp.com/" };
 app.use(cors(corsOptions));
 
 //routes

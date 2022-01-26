@@ -4,7 +4,7 @@ export const getAllMilks = async () => {
   try {
     const token = JSON.parse(localStorage.getItem("token"));
     const response = await axios.get(
-      "https://milk-master.herokuapp.com/api/milks",
+      "https://milk-master-demo.herokuapp.com/api/milks",
       {
         headers: {
           Authorization: `Bearer ${token.value}`,
@@ -22,7 +22,7 @@ export const updateMilk = async (milk) => {
   try {
     const token = JSON.parse(localStorage.getItem("token"));
     const response = await axios.patch(
-      "https://milk-master.herokuapp.com/api/milks",
+      "https://milk-master-demo.herokuapp.com/api/milks",
       milk,
       {
         headers: {

@@ -46,6 +46,7 @@ export const getColor = (word) => {
   colors.forEach((color) => {
     if (color.color === word) {
       code = color.code;
+      return code;
     }
   });
   return code;
