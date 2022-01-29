@@ -22,7 +22,7 @@ const Order = () => {
   const [url, setUrl] = useState("");
   const [error, setError] = useState("");
   const [view, setView] = useState("all");
-  const [checks, setChecks] = [];
+  const [checks, setChecks] = useState([]);
   const orderList = useSelector((state) => state.order.milks);
 
   // functions
@@ -76,6 +76,7 @@ const Order = () => {
     const submission = {
       milks: [],
     };
+    const checkers = [];
     milks.forEach((milk, i) => {
       const milkState = orderList[i];
       const total = Math.floor(
@@ -83,13 +84,15 @@ const Order = () => {
           Number(milkState.crates) * milks[i].multiplier
       );
       submission.milks.push(total);
-      if (total >= 200) {
-        setChecks([...checks, milk]);
+      if (total > 199) {
+        console.log(`milk ${milk.name} has a total of ${total}.`, milk);
+        checkers.push(milk);
       }
     });
-    if (checks.length === 0) {
+    if (checkers.length === 0) {
       handleSubmit(e);
     } else {
+      setChecks(checkers);
       setMessage(
         "You ordered a lot of these milks, are you sure? Change them now and/or click submit."
       );
@@ -132,11 +135,8 @@ const Order = () => {
             />
           ))}
         {checks.length && (
-          <div className="container-fluid">
-            <button
-              className="btn btn-primary mx-auto my-3"
-              onClick={handleSubmit}
-            >
+          <div className="container-fluid d-flex justify-content-center">
+            <button className="btn btn-primary my-3" onClick={handleSubmit}>
               Submit
             </button>
           </div>
