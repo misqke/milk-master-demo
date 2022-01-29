@@ -22,12 +22,13 @@ const Order = () => {
   const [url, setUrl] = useState("");
   const [error, setError] = useState("");
   const [view, setView] = useState("all");
+  const [checks, setChecks] = [];
   const orderList = useSelector((state) => state.order.milks);
 
   // functions
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setView("all");
+    setChecks([]);
     setMessage(
       "Submitting Order... This may take a few moments... Do not refresh or close browser...."
     );
@@ -67,6 +68,34 @@ const Order = () => {
     }
   };
 
+  const handleDoubleCheck = (e) => {
+    e.preventDefault();
+    setMessage("checking order...");
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+    const submission = {
+      milks: [],
+    };
+    milks.forEach((milk, i) => {
+      const milkState = orderList[i];
+      const total = Math.floor(
+        Number(milkState.stacks) * milks[i].multiplier * cratesPerStack +
+          Number(milkState.crates) * milks[i].multiplier
+      );
+      submission.milks.push(total);
+      if (total >= 200) {
+        setChecks([...checks, milk]);
+      }
+    });
+    if (checks.length === 0) {
+      handleSubmit(e);
+    } else {
+      setMessage(
+        "You ordered a lot of these milks, are you sure? Change them now and/or click submit."
+      );
+    }
+  };
+
   const handleViewClick = (col) => {
     return () => {
       setView(col);
@@ -94,6 +123,24 @@ const Order = () => {
     return (
       <div className="container d-flex justify-content-center flex-column py-3 align-items-center">
         <h3 className="text-primary text-center py-3">{message}</h3>
+        {checks.length &&
+          checks.map((milk) => (
+            <OrderRow
+              milk={milk}
+              key={milk._id}
+              cratesPerStack={cratesPerStack}
+            />
+          ))}
+        {checks.length && (
+          <div className="container-fluid">
+            <button
+              className="btn btn-primary mx-auto my-3"
+              onClick={handleSubmit}
+            >
+              Submit
+            </button>
+          </div>
+        )}
         {url && <img src={`data:image/png;base64,${url}`} alt="confirmation" />}
       </div>
     );
@@ -160,7 +207,7 @@ const Order = () => {
               )
             );
           })}
-        <form className="container my-5" onSubmit={handleSubmit}>
+        <form className="container my-5" onSubmit={handleDoubleCheck}>
           <div className="mb-3">
             <label className="form-label text-primary" htmlFor="username">
               Deans Login
