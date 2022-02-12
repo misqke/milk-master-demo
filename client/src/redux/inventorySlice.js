@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 let initialState = [];
 
-for (let i = 0; i < 50; i++) {
+for (let i = 0; i < 47; i++) {
   const milk = {
     id: i + 1,
     shelf: "",
@@ -16,10 +16,10 @@ const inventorySlice = createSlice({
   initialState: initialState,
   reducers: {
     updateShelf: (state, { payload }) => {
-      state[payload.id - 1].shelf = payload.value;
+      state[payload.index].shelf = payload.value;
     },
     updateCrates: (state, { payload }) => {
-      state[payload.id - 1].crates = payload.value;
+      state[payload.index].crates = payload.value;
     },
   },
 });

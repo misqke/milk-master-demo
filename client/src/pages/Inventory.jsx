@@ -124,11 +124,13 @@ const Inventory = () => {
           <h2 className="text-white my-auto">Inventory</h2>
         </div>
         {milks &&
-          milks.map((milk) => {
+          milks.map((milk, i) => {
             return view === "all" ? (
-              <InventoryRow milk={milk} key={milk._id} />
+              <InventoryRow milk={milk} key={milk._id} index={i} />
             ) : (
-              milk.color === view && <InventoryRow milk={milk} key={milk._id} />
+              milk.color === view && (
+                <InventoryRow milk={milk} key={milk._id} index={i} />
+              )
             );
           })}
         <form className="container my-5" onSubmit={handleSubmit}>

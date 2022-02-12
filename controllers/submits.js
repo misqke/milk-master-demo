@@ -23,7 +23,6 @@ const submitInventory = async (req, res) => {
 const submitOrder = async (req, res) => {
   try {
     const { milks } = req.body;
-
     runScraper(milks, process.env.DEANS_LOGIN, process.env.DEANS_PASSWORD, 2);
     res.status(201).json({
       msg: "Submitting order... This may take a few minutes... Do not close or refresh browser... ",

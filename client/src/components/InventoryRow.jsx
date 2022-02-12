@@ -3,10 +3,10 @@ import { getColor } from "../utils/colors";
 import { useSelector, useDispatch } from "react-redux";
 import { updateShelf, updateCrates } from "../redux/inventorySlice";
 
-const InventoryRow = ({ milk }) => {
+const InventoryRow = ({ milk, index }) => {
   const dispatch = useDispatch();
-  const shelf = useSelector((state) => state.inventory[milk._id - 1].shelf);
-  const crates = useSelector((state) => state.inventory[milk._id - 1].crates);
+  const shelf = useSelector((state) => state.inventory[index].shelf);
+  const crates = useSelector((state) => state.inventory[index].crates);
   const [total, setTotal] = useState("");
   const [color, setColor] = useState("");
 
@@ -48,9 +48,7 @@ const InventoryRow = ({ milk }) => {
           inputMode="decimal"
           value={shelf}
           onChange={(e) =>
-            dispatch(
-              updateShelf({ id: milk._id, value: Math.floor(e.target.value) })
-            )
+            dispatch(updateShelf({ index, value: Math.floor(e.target.value) }))
           }
           style={{ height: "35px" }}
         />
@@ -64,7 +62,7 @@ const InventoryRow = ({ milk }) => {
           inputMode="decimal"
           value={crates}
           onChange={(e) =>
-            dispatch(updateCrates({ id: milk._id, value: e.target.value }))
+            dispatch(updateCrates({ index, value: e.target.value }))
           }
           style={{ height: "35px" }}
         />

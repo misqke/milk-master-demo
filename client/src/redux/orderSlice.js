@@ -5,7 +5,7 @@ let initialState = {
   cratesPerStack: "6",
 };
 
-for (let i = 0; i < 50; i++) {
+for (let i = 0; i < 47; i++) {
   const milk = {
     id: i + 1,
     stacks: "",
@@ -19,10 +19,10 @@ const orderSlice = createSlice({
   initialState: initialState,
   reducers: {
     updateStacks: (state, { payload }) => {
-      state.milks[payload.id - 1].stacks = payload.value;
+      state.milks[payload.index].stacks = payload.value;
     },
     updateCrates: (state, { payload }) => {
-      state.milks[payload.id - 1].crates = payload.value;
+      state.milks[payload.index].crates = payload.value;
     },
     updateCratesPerStack: (state, { payload }) => {
       state.cratesPerStack = payload;

@@ -3,10 +3,10 @@ import { getColor } from "../utils/colors";
 import { useSelector, useDispatch } from "react-redux";
 import { updateStacks, updateCrates } from "../redux/orderSlice";
 
-const OrderRow = ({ milk, cratesPerStack }) => {
+const OrderRow = ({ milk, cratesPerStack, index }) => {
   const dispatch = useDispatch();
-  const stacks = useSelector((state) => state.order.milks[milk._id - 1].stacks);
-  const crates = useSelector((state) => state.order.milks[milk._id - 1].crates);
+  const stacks = useSelector((state) => state.order.milks[index].stacks);
+  const crates = useSelector((state) => state.order.milks[index].crates);
   const [total, setTotal] = useState("");
   const [color, setColor] = useState("");
 
@@ -50,7 +50,7 @@ const OrderRow = ({ milk, cratesPerStack }) => {
           inputMode="decimal"
           value={stacks}
           onChange={(e) =>
-            dispatch(updateStacks({ id: milk._id, value: e.target.value }))
+            dispatch(updateStacks({ index, value: e.target.value }))
           }
           style={{ height: "35px" }}
         />
@@ -64,7 +64,7 @@ const OrderRow = ({ milk, cratesPerStack }) => {
           inputMode="decimal"
           value={crates}
           onChange={(e) =>
-            dispatch(updateCrates({ id: milk._id, value: e.target.value }))
+            dispatch(updateCrates({ index, value: e.target.value }))
           }
           style={{ height: "35px" }}
         />
