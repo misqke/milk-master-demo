@@ -23,7 +23,7 @@ const Milks = () => {
   }, []);
 
   return (
-    <div className="container py-2 px-3 bg-dark">
+    <div className="container col-12 col-md-8 col-lg-6 py-2 px-3 bg-dark">
       <div className="d-flex justify-content-between flex-column my-2">
         <h2 className="text-white my-auto">Milk List</h2>
         {milks &&

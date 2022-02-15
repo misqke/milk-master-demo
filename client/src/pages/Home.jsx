@@ -12,7 +12,7 @@ const Home = () => {
   }, [navigate]);
 
   return (
-    <div className="container w-100 h-100 d-flex flex-column gap-4 align-items-center justify-content-center px-4 pb-2 py-5">
+    <div className="container col-12 col-md-8 col-lg-6 d-flex flex-column gap-4 align-items-center justify-content-center px-4 pb-2 py-5">
       <Link to="/inventory" className="btn btn-primary py-2 w-100">
         Inventory
       </Link>

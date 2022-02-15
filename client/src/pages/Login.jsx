@@ -24,7 +24,7 @@ const Login = () => {
   };
 
   return (
-    <div className="container w-75">
+    <div className="container col-12 col-md-8 col-lg-6">
       {error && <div className="alert alert-danger">{error}</div>}
       <form onSubmit={handleSubmit}>
         <div className="form-group">

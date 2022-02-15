@@ -148,7 +148,7 @@ const Order = () => {
 
   if (!message) {
     return (
-      <div className="container py-2 px-3 bg-dark">
+      <div className="container col-12 col-md-8 col-lg-6 py-2 px-3 bg-dark">
         <div
           className="row py-1 d-flex justify-content-evenly flex-wrap sticky-top bg-dark"
           style={{ zIndex: "100" }}

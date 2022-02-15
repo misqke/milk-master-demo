@@ -4,7 +4,7 @@ export const submitInventory = async (data) => {
   try {
     const token = JSON.parse(localStorage.getItem("token"));
     const response = await axios.post(
-      "https://milk-master-demo.herokuapp.com/api/submits/inventory",
+      "https://milk-master-demo.herokuapp.com/submits/inventory",
       data,
       {
         headers: {
@@ -23,7 +23,7 @@ export const submitOrder = async (data) => {
   try {
     const token = JSON.parse(localStorage.getItem("token"));
     const response = await axios.post(
-      "https://milk-master-demo.herokuapp.com/api/submits/order",
+      "https://milk-master-demo.herokuapp.com/submits/order",
       data,
       {
         headers: {
@@ -42,7 +42,7 @@ export const getConfirmation = async (num) => {
   try {
     const token = JSON.parse(localStorage.getItem("token"));
     const response = await axios.get(
-      `https://milk-master-demo.herokuapp.com/api/submits/confirmation/?num=${num}`,
+      `https://milk-master-demo.herokuapp.com/submits/confirmation/?num=${num}`,
       {
         headers: {
           Authorization: `Bearer ${token.value}`,
