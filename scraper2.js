@@ -59,10 +59,10 @@ const scraper2 = async (milkList, login, password) => {
     // SUBMIT ORDER - PRODUCTION ONLY
 
     await page.hover("#btn-submit-order-details");
-    await page.waitForTimeout(200);
+    await page.waitForTimeout(500);
     // screenshot confirmation and encode in base64
     const image = await page.screenshot({ type: "png" });
-    const imageString = await image.toString("base64");
+    const imageString = image.toString("base64");
 
     // close browser
     await browser.close();
