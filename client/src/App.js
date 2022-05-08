@@ -17,8 +17,8 @@ import getColor from "./util/getColor";
 import getTotal from "./util/getTotal";
 import "./styles/app.css";
 
-axios.defaults.baseURL = "http://localhost:8000";
-// axios.defaults.baseURL = "https://milk-master-demo.herokuapp.com";
+// axios.defaults.baseURL = "http://localhost:8000";
+axios.defaults.baseURL = "https://milk-master-demo.herokuapp.com";
 
 export default function App() {
   const [milks, setMilks] = useState([]);
