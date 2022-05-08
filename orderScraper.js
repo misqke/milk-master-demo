@@ -3,7 +3,7 @@ const fs = require("fs");
 const puppeteer = require("puppeteer");
 const url = "https://orders.deanfoods.com/";
 
-const scraper2 = async (milkList, login, password) => {
+const orderScraper = async (milkList) => {
   // start browser and open page
   const browser = await puppeteer.launch({
     args: ["--no-sandbox", "-disable-setuid-sandbox"],
@@ -19,8 +19,8 @@ const scraper2 = async (milkList, login, password) => {
     await page.goto(url);
 
     // log in
-    await page.type("#ProfileID", login);
-    await page.type("#AppPwd", password);
+    await page.type("#ProfileID", process.env.DEANS_LOGIN);
+    await page.type("#AppPwd", process.env.DEANS_PASSWORD);
     await page.keyboard.press("Enter");
 
     // click order
@@ -59,10 +59,11 @@ const scraper2 = async (milkList, login, password) => {
     // SUBMIT ORDER - PRODUCTION ONLY
 
     await page.hover("#btn-submit-order-details");
-    await page.waitForTimeout(500);
+
     // screenshot confirmation and encode in base64
+    await page.waitForTimeout(2000);
     const image = await page.screenshot({ type: "png" });
-    const imageString = image.toString("base64");
+    const imageString = await image.toString("base64");
 
     // close browser
     await browser.close();
@@ -80,4 +81,4 @@ const scraper2 = async (milkList, login, password) => {
   }
 };
 
-module.exports = scraper2;
+module.exports = orderScraper;

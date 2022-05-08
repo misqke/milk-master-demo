@@ -1,27 +1,15 @@
-const Milks = require("../models/milkSchema");
+const getMilks = require("../getMilksScraper");
 
-const getAllMilks = async (req, res) => {
+const getMilkData = async (req, res) => {
   try {
-    const milks = await Milks.find().sort("_id");
-    res.status(200).json({ msg: "success", data: milks });
+    const milks = await getMilks();
+    res.status(200).json(milks);
   } catch (error) {
     console.log(error);
-  }
-};
-
-const updateMilk = async (req, res) => {
-  try {
-    const milk = req.body;
-    const newMilk = await Milks.findByIdAndUpdate(milk._id, milk, {
-      new: true,
-    });
-    res.status(201).json({ msg: "success", data: newMilk });
-  } catch (error) {
-    console.log(error);
+    res.json({ error: error.message });
   }
 };
 
 module.exports = {
-  getAllMilks,
-  updateMilk,
+  getMilkData,
 };

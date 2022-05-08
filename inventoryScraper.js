@@ -3,7 +3,7 @@ const fs = require("fs");
 const puppeteer = require("puppeteer");
 const url = "https://orders.deanfoods.com/";
 
-const scraper = async (milkList, login, password) => {
+const inventoryScraper = async (milkList) => {
   // start browser and open page
   const browser = await puppeteer.launch({
     args: ["--no-sandbox", "-disable-setuid-sandbox"],
@@ -19,8 +19,8 @@ const scraper = async (milkList, login, password) => {
     await page.goto(url);
 
     // log in, click inventory, click new
-    await page.type("#ProfileID", login);
-    await page.type("#AppPwd", password);
+    await page.type("#ProfileID", process.env.DEANS_LOGIN);
+    await page.type("#AppPwd", process.env.DEANS_PASSWORD);
     await page.keyboard.press("Enter");
 
     await page.waitForSelector(
@@ -55,11 +55,11 @@ const scraper = async (milkList, login, password) => {
     // SUBMIT INVENTORY - PRODUCTION ONLY
 
     await page.hover("div.col-5.align-right > a");
-    await page.waitForTimeout(500);
-    // screenshot confirmation and encode in base64
 
+    // screenshot confirmation and encode in base64
+    await page.waitForTimeout(2000);
     const image = await page.screenshot({ type: "png" });
-    const imageString = image.toString("base64");
+    const imageString = await image.toString("base64");
 
     // close browser
     await browser.close();
@@ -78,4 +78,4 @@ const scraper = async (milkList, login, password) => {
   }
 };
 
-module.exports = scraper;
+module.exports = inventoryScraper;
