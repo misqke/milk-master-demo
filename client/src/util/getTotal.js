@@ -1,8 +1,10 @@
 const getTotal = (milk) => {
   const stackMultiplier = 6;
-  const stacksTotal = milk.stacks * stackMultiplier * milk.crateMultiplier;
-  const crateTotal = milk.crates * milk.crateMultiplier;
-  const newTotal = stacksTotal + crateTotal + Number(milk.singles);
+  const stacksTotal = Math.floor(
+    milk.stacks * stackMultiplier * milk.crateMultiplier
+  );
+  const crateTotal = Math.floor(milk.crates * milk.crateMultiplier);
+  const newTotal = stacksTotal + crateTotal + milk.singles;
   return newTotal;
 };
 

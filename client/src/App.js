@@ -93,9 +93,9 @@ export default function App() {
         const newMilk = {
           name: milk.name,
           crateMultiplier: Number(milk.crateMultiplier),
-          singles: 0,
-          crates: 0,
-          stacks: 0,
+          singles: "",
+          crates: "",
+          stacks: "",
           color,
         };
         milkList.push(newMilk);
