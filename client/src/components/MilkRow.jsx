@@ -6,7 +6,11 @@ const MilkRow = ({ milk, index, updateMilk }) => {
   const [total, setTotal] = useState(0);
 
   const handleChange = (e, what) => {
-    const updatedMilk = { ...milk, [what]: Number(e.target.value) };
+    const value =
+      what === "singles"
+        ? Math.floor(Number(e.target.value))
+        : Number(e.target.value);
+    const updatedMilk = { ...milk, [what]: value };
     updateMilk(index, updatedMilk);
   };
 
@@ -35,7 +39,7 @@ const MilkRow = ({ milk, index, updateMilk }) => {
       <Input
         type="number"
         min="0"
-        // inputMode="decimal"
+        inputMode="decimal"
         value={milk.singles}
         onChange={(e) => handleChange(e, "singles")}
       />

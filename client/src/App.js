@@ -25,7 +25,7 @@ export default function App() {
   const [loading, setLoading] = useState(
     milks.length ? "" : "Loading milk data..."
   );
-  const [inventory, setInventory] = useState(true);
+  const [inventory, setInventory] = useState(undefined);
   // const [password, setPassword] = useState("");
   // const [login, setLogin] = useState("");
   const [confirmation, setConfirmation] = useState("");
@@ -60,6 +60,10 @@ export default function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    if (inventory === undefined) {
+      setError("Select Inventory or Order");
+      return;
+    }
     setLoading(`Submitting ${inventory ? "inventory" : "order"}...`);
 
     const submission = milks.map((milk) => {
@@ -118,7 +122,6 @@ export default function App() {
         <Image src={`data:image/gif;base64, ${confirmation}`} alt="" />
       ) : (
         <Box>
-          {error.length > 0 && <ErrorMsg>{error}</ErrorMsg>}
           <TableHeader>
             <span>Name</span>
             <span>Stacks</span>
@@ -126,6 +129,7 @@ export default function App() {
             <span>Singles</span>
             <span>Total</span>
           </TableHeader>
+          {error.length > 0 && <ErrorMsg>{error}</ErrorMsg>}
           {milks.map((milk, i) => (
             <MilkRow
               key={milk.name}
@@ -137,14 +141,14 @@ export default function App() {
           <Form onSubmit={handleSubmit}>
             <Selector>
               <button
-                className={`btn ${inventory ? "active" : null}`}
+                className={`btn ${inventory === true ? "active" : null}`}
                 type="button"
                 onClick={() => setInventory(true)}
               >
                 Inventory
               </button>
               <button
-                className={`btn ${!inventory ? "active" : null}`}
+                className={`btn ${inventory === false ? "active" : null}`}
                 type="button"
                 onClick={() => setInventory(false)}
               >

@@ -7,6 +7,12 @@
   cursor: pointer;
 }
 
+.btn:hover {
+  background-color: #33f8;
+  color: #fff;
+}
+
 .active {
   background-color: #33f8;
+  box-shadow: 0 0 5px 5px #33f6;
 }
