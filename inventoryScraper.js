@@ -11,6 +11,8 @@ const inventoryScraper = async (milkList) => {
       width: 360,
       height: 600,
     },
+    // headless: false,
+    // slowMo: 30,
   });
   const page = await browser.newPage();
 
