@@ -69,6 +69,18 @@ export default function App() {
     const submission = milks.map((milk) => {
       return getTotal(milk);
     });
+    let isEmpty = true;
+    for (let i = 0; i < submission.length; i++) {
+      if (submission[i] !== 0) {
+        isEmpty = false;
+        break;
+      }
+    }
+    if (isEmpty === true) {
+      setError("Please include at least one value");
+      setLoading(false);
+      return;
+    }
     const { data } = await axios.post(
       `/api/submits/${inventory ? "inventory" : "order"}`,
       {

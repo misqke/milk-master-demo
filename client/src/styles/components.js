@@ -24,7 +24,7 @@ export const Title = styled.h1`
   padding: 0.5rem;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-  color: #00f;
+  color: #000;
   margin: 0;
 `;
 
@@ -39,7 +39,7 @@ export const Box = styled.div`
   margin-top: 70px;
   overflow-x: hidden;
   overflow-y: scroll;
-  background-color: #3335;
+  background-color: #3337;
   border-radius: 0.5rem;
   position: relative;
 `;
@@ -53,6 +53,7 @@ export const TableHeader = styled.div`
   justify-content: space-around;
   height: 1.5rem;
   background-color: #0009;
+  z-index: 10;
   span {
     width: 50px;
     text-align: center;
@@ -75,6 +76,7 @@ export const Form = styled.form`
   input {
     padding: 0.25rem;
     background-color: #1113;
+
     color: #fff;
   }
 `;
@@ -108,6 +110,7 @@ export const ErrorMsg = styled.div`
   color: #fff;
   text-align: center;
   font-size: 1rem;
+  z-index: 9;
 `;
 
 export const Row = styled.div`
@@ -116,6 +119,10 @@ export const Row = styled.div`
   justify-content: space-around;
   text-shadow: 0 0 2px #222;
   color: #fff;
+  padding: 5px 0;
+  :nth-child(even) {
+    background-color: #2222;
+  }
 `;
 
 export const RowTitle = styled.div`
@@ -126,16 +133,21 @@ export const RowTitle = styled.div`
 `;
 
 export const Input = styled.input`
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
   text-align: center;
   background: #1113;
   color: inherit;
+  backdrop-filter: blur(8px);
 `;
 
 export const Total = styled.p`
   text-align: center;
+  font-weight: 500;
   width: 50px;
+  margin-top: auto;
+  font-size: 1.25rem;
+  line-height: 1.25rem;
 `;
 
 export const loadAnimation = keyframes`

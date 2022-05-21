@@ -5,7 +5,7 @@ const getTotal = (milk) => {
   );
   const crateTotal = Math.floor(milk.crates * milk.crateMultiplier);
   const newTotal = stacksTotal + crateTotal + milk.singles;
-  return newTotal;
+  return Number(newTotal);
 };
 
 export default getTotal;
