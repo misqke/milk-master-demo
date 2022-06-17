@@ -11,6 +11,8 @@ const orderScraper = async (milkList) => {
       width: 360,
       height: 600,
     },
+    // headless: false,
+    // slowMo: 50,
   });
   const page = await browser.newPage();
 
